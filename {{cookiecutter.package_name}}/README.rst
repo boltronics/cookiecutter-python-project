@@ -7,13 +7,15 @@
 Quickstart
 ==========
 
-{{cookiecutter.package_display_name}} is available on PyPI and can be installed with `pip <https://pip.pypa.io>`_.
+{{cookiecutter.package_display_name}} is available on PyPI and can be
+installed with `pip <https://pip.pypa.io>`_.
 
 .. code-block:: console
 
     $ pip install {{cookiecutter.package_name}}
 
-After installing {{cookiecutter.package_display_name}} you can use it like any other Python module.
+After installing {{cookiecutter.package_display_name}} you can use it
+like any other Python module.
 
 Here is a simple example:
 
@@ -22,4 +24,6 @@ Here is a simple example:
     import {{cookiecutter.package_name}}
     # Fill this section in with the common use-case.
 
-The `API Reference <http://{{cookiecutter.package_name}}.readthedocs.io>`_ provides API-level documentation.
+The `API Reference
+<http://{{cookiecutter.package_name}}.readthedocs.io>`_ provides
+API-level documentation.
