@@ -43,16 +43,16 @@ class ExamplesTestCase(unittest.TestCase):
 
         try:
             os.chdir(script_dir)
-            proc = subprocess.Popen(
+            with subprocess.Popen(
                 args,
                 env=env,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 shell=False,
                 **kwargs,
-            )
-            _out, _err = proc.communicate(timeout=timeout)
-            returncode = proc.returncode
+            ) as proc:
+                _out, _err = proc.communicate(timeout=timeout)
+                returncode = proc.returncode
         finally:
             os.chdir(original_cwd)
 
