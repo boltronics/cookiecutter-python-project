@@ -13,7 +13,7 @@ fi
 
 RELEASE_ARCHIVE="$1"
 
-echo "Release archive: $RELEASE_ARCHIVE"
+echo "Release archive: ${RELEASE_ARCHIVE}"
 
 echo "Removing any old artefacts"
 rm -rf test_venv
@@ -27,12 +27,12 @@ source test_venv/bin/activate
 echo "Upgrading pip"
 pip install pip --upgrade
 
-echo "Installing $RELEASE_ARCHIVE"
-pip install $RELEASE_ARCHIVE
+echo "Installing ${RELEASE_ARCHIVE}"
+pip install "${RELEASE_ARCHIVE}"
 
 echo "Running tests"
-cd ../tests
-python -m unittest discover -s .
+cd ../tests &&
+    python -m unittest discover -s .
 
 echo "Exiting test virtual environment"
 deactivate
