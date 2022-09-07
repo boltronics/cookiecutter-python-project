@@ -99,7 +99,7 @@ is a shortened form for Github):
 
 .. code-block:: console
 
-    (cc) $ cookiecutter gh:claws/cookiecutter-python-project
+    (cc) $ cookiecutter gh:boltronics/cookiecutter-python-project
 
 Alternatively, if you have cloned a local copy of this template you can
 reference it directly:
