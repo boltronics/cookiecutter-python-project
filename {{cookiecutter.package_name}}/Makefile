@@ -21,7 +21,7 @@ venv:
 	@rm -Rf venv
 	@python3 -m venv venv --prompt {{cookiecutter.package_name}}
 	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt && pip install -e ."
-	@echo "Enter virtual environment using:\n\n\t$ source venv/bin/activate\n"
+	@echo -e "Enter virtual environment using:\n\n\t$ source venv/bin/activate\n"
 
 
 # help: clean                          - clean all files using .gitignore rules
