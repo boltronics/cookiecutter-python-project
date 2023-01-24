@@ -1,7 +1,7 @@
 import os
 import re
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 regexp = re.compile(r".*__version__ = [\'\"](.*?)[\'\"]", re.S)
 
@@ -9,7 +9,7 @@ base_package = "{{cookiecutter.package_name}}"
 base_path = os.path.dirname(__file__)
 
 init_file = os.path.join(
-    base_path, "src", "{{cookiecutter.package_name}}", "__init__.py"
+    base_path, "{{cookiecutter.package_name}}", "__init__.py"
 )
 with open(init_file, "r", encoding="utf-8") as f:
     module_content = f.read()
@@ -55,8 +55,7 @@ if __name__ == "__main__":
         maintainer_email="{{cookiecutter.email}}",
         install_requires=requirements,
         keywords=["{{cookiecutter.package_name}}"],
-        package_dir={"": "src"},
-        packages=find_packages("src"),
+        packages=["{{cookiecutter.package_name}}"],
         zip_safe=False,
         # https://pypi.org/classifiers/
         classifiers=[

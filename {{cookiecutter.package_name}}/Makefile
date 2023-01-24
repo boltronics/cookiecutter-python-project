@@ -52,7 +52,7 @@ test-verbose:
 .PHONY: coverage
 coverage:
 	@coverage erase
-	@PYTHONPATH=src coverage run -m unittest discover -s tests -v
+	coverage run -m unittest discover -s tests -v
 	@coverage html
 	@coverage report
 
@@ -60,13 +60,13 @@ coverage:
 # help: format                         - perform code style format
 .PHONY: format
 format:
-	@black src/{{cookiecutter.package_name}} tests examples
+	@black {{cookiecutter.package_name}} tests examples
 
 
 # help: check-format                   - check code format compliance
 .PHONY: check-format
 check-format:
-	@black --check src/{{cookiecutter.package_name}} tests examples
+	@black --check {{cookiecutter.package_name}} tests examples
 
 
 # help: sort-imports                   - apply import sort ordering
@@ -94,7 +94,7 @@ check-style: check-sort-imports check-format
 # help: check-types                    - check type hint annotations
 .PHONY: check-types
 check-types:
-	@cd src; mypy -p {{cookiecutter.package_name}} --ignore-missing-imports
+	mypy -p {{cookiecutter.package_name}} --ignore-missing-imports
 
 
 # help: check-lint                     - run static analysis checks
