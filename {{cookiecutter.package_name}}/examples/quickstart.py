@@ -7,9 +7,11 @@ import {{cookiecutter.package_name}}
 
 
 def main():
-    print(
-        f"{{cookiecutter.package_name}} version: {% raw -%}{{%- endraw %}{{cookiecutter.package_name}}.__version__{% raw -%}}{%- endraw %}"
-    )
+    print(f"{{cookiecutter.package_name}} version: {% raw -%}
+      {
+    {%- endraw %}{{cookiecutter.package_name}}.__version__{% raw -%}
+      }
+    {%- endraw %}")
 
 
 if __name__ == "__main__":
