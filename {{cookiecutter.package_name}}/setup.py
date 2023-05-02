@@ -1,15 +1,14 @@
-import os
 import re
-
+from pathlib import PurePath
 from setuptools import setup
 
 regexp = re.compile(r".*__version__ = [\'\"](.*?)[\'\"]", re.S)
 
 base_package = "{{cookiecutter.package_name}}"
-base_path = os.path.dirname(__file__)
+base_path = PurePath(__file__).parent
 
-init_file = os.path.join(
-    base_path, "{{cookiecutter.package_name}}", "__init__.py"
+init_file = PurePath(base_path).joinpath(
+    "{{cookiecutter.package_name}}", "__init__.py"
 )
 with open(init_file, "r", encoding="utf-8") as f:
     module_content = f.read()
