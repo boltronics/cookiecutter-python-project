@@ -7,7 +7,15 @@
   "email": "",
   "github_user_name": "GithubUserName",
   "github_repo_name": "{{cookiecutter.package_name}}",
-  "license": ["MIT license", "BSD license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "license": [
+    "Apache License, Version 2.0",
+    "Expat License",
+    "GNU GPL version 2",
+    "GNU GPL version 3",
+    "GNU AGPL version 3",
+    "Modified BSD license (3-clause)",
+    "Not licensed for distribution (no license)"
+  ],
   "year": "{% now 'utc', '%Y' %}",
   "_extensions": ["jinja2_time.TimeExtension"]
 }

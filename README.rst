@@ -34,8 +34,8 @@ the following items:
   developer documentation.
 - An empty ``CHANGELOG.rst`` file. This file gets included in the user
   documentation.
-- A ``License`` file that defaults to the MIT License. Change this if
-  you choose a license other than MIT.
+- A ``LICENSE`` file (or ``COPYING`` for GNU licenses) that defaults
+  to the Apache License version 2.0.
 - An ``examples`` directory with a minimal quickstart example script. This
   script imports the package and prints the package version. It is also
   called by the unit test suite to ensure it always works.
@@ -128,10 +128,6 @@ Some aspects of generating a project in a generic approach are not practical
 to completely automate so there may be a few steps remaining before you begin
 using the new project.
 
-- If you specify a license other than MIT then you will need to update the
-  ``LICENSE`` file to contain your license content. By default it contains
-  a MIT License.
-
 - If you do not plan to publish project artifacts at GitHub, PyPI or
   ReadTheDocs then remove any links to those sites. Affected files are:
 
@@ -175,13 +171,15 @@ Python package name.
     github_user_name [GithubUserName]: flast
     github_repo_name [abc_123]:
     Select license:
-    1 - MIT license
-    2 - BSD license
-    3 - Apache Software License 2.0
-    4 - GNU General Public License v3
-    5 - Not open source
-    Choose from 1, 2, 3, 4, 5 [1]:
-    year [2018]:
+    1 - Apache License, Version 2.0
+    2 - Expat License
+    3 - GNU GPL version 2
+    4 - GNU GPL version 3
+    5 - GNU AGPL version 3
+    6 - Modified BSD license (3-clause)
+    7 - Not licensed for distribution (no license)
+    Choose from 1, 2, 3, 4, 5, 6, 7 [1]:
+    year [2023]:
 
 The project has been created in the ``abc_123`` directory.
 
