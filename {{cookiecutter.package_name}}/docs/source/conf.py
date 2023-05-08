@@ -1,31 +1,37 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
+"""Sphinx configuration"""
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import os
+# import os
+# import sys
 import re
-import sys
+from pathlib import Path
 
 from sphinx.ext import apidoc
 
+# If extensions (or modules to document with autodoc) are in another
+# directory, add these directories to sys.path here (and uncomment the
+# os and sys imports above). If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like
+# shown here.
+#
 # sys.path.insert(0, os.path.abspath('.'))
 
 
+base_package = "{{cookiecutter.package_name}}"
 regexp = re.compile(r".*__version__ = [\'\"](.*?)[\'\"]", re.S)
-repo_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-pkg_root = os.path.join(repo_root, "{{cookiecutter.package_name}}")
-init_file = os.path.join(pkg_root, "__init__.py")
-with open(init_file, "r", encoding="utf-8") as f:
-    module_content = f.read()
+repo_root_path = Path(__file__).parents[2].absolute()
+repo_root = str(repo_root_path)
+pkg_root_path = repo_root_path.joinpath(base_package)
+pkg_root = str(pkg_root_path)
+init_file = pkg_root_path.joinpath("__init__.py")
+with init_file.open(mode="r", encoding="utf-8") as file_handle:
+    module_content = file_handle.read()
     match = regexp.match(module_content)
     if match:
-        version = match.group(1)
+        short_version = match.group(1)
     else:
-        raise RuntimeError("Cannot find __version__ in {}".format(init_file))
+        raise RuntimeError(f"Cannot find __version__ in {init_file}")
 
 
 # -- General configuration ------------------------------------------------
@@ -60,7 +66,7 @@ author = "{{cookiecutter.full_name}}"
 # built documents.
 #
 # The short X.Y version.
-version = version
+version = short_version
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -127,7 +133,7 @@ html_sidebars = {
 
 
 def run_apidoc(_):
-    output_path = os.path.join(repo_root, "docs", "source", "api")
+    output_path = str(repo_root_path.joinpath("docs", "source", "api"))
     apidoc.main(["-o", output_path, "-f", pkg_root])
 
 
