@@ -13,7 +13,8 @@ MAKEFLAGS += --no-print-directory
 # help: help                           - display this makefile's help information
 .PHONY: help
 help:
-	@grep "^# help\:" Makefile | grep -v grep | sed 's/\# help\: //' | sed 's/\# help\://'
+	@grep "^#\shelp:" Makefile | grep -v grep | sed 's/\# help\: //' | sed 's/\# help\://'
+
 
 # help: venv                           - create a virtual environment for development
 .PHONY: venv
