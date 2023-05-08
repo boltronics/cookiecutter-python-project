@@ -10,19 +10,29 @@ MAKEFLAGS += --no-print-directory
 # help: {{cookiecutter.package_display_name}} Makefile help
 # help:
 
-# help: help                           - display this makefile's help information
+# help: help                           - display makefile help information
 .PHONY: help
 help:
-	@grep "^#\shelp:" Makefile | grep -v grep | sed 's/\# help\: //' | sed 's/\# help\://'
+	@grep "^#\shelp:" Makefile | \
+		grep -v grep | \
+		sed 's/\# help\: //' | \
+		sed 's/\# help\://'
 
 
-# help: venv                           - create a virtual environment for development
+# help: venv                           - create a dev virtual environment
+PIP_CMDS = \
+       source venv/bin/activate && \
+       pip install pip --upgrade && \
+       pip install -r requirements.dev.txt && \
+       pip install -e .
 .PHONY: venv
 venv:
 	@rm -Rf venv
 	@python3 -m venv venv --prompt {{cookiecutter.package_name}}
-	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt && pip install -e ."
-	@echo -e "Enter virtual environment using:\n\n\t$ source venv/bin/activate\n"
+	/bin/bash -c "${PIP_CMDS}"
+	@echo -e "Enter virtual environment using:" \
+		"\n\n\t$ source venv/bin/activate\n"
+
 
 
 # help: clean                          - clean all files using .gitignore rules
@@ -101,7 +111,11 @@ check-types:
 # help: check-lint                     - run static analysis checks
 .PHONY: check-lint
 check-lint:
-	@pylint --rcfile=.pylintrc {{cookiecutter.package_name}} ./tests setup.py ./examples
+	@pylint --rcfile=.pylintrc \
+		{{cookiecutter.package_name}} \
+		examples \
+		tests \
+		setup.py
 
 
 # help: check-static-analysis          - check code style compliance
@@ -112,8 +126,12 @@ check-static-analysis: check-lint check-types
 # help: docs                           - generate project documentation
 .PHONY: docs
 docs: coverage
-	@cd docs; rm -rf source/api/{{cookiecutter.package_name}}*.rst source/api/modules.rst build/*
-	@cd docs; make html
+	@cd docs && \
+	rm -rf \
+		source/api/{{cookiecutter.package_name}}*.rst \
+		source/api/modules.rst \
+		build/*
+	@cd docs && make html
 
 
 # help: check-docs                     - quick check docs consistency
@@ -137,7 +155,9 @@ dist:
 # help: dist-test                      - test a whell distribution package
 .PHONY: dist-test
 dist-test: dist
-	@cd dist && ../tests/test-dist.bash ./{{cookiecutter.package_name}}-*-py3-none-any.whl
+	@cd dist && \
+	../tests/test-dist.bash \
+		./{{cookiecutter.package_name}}-*-py3-none-any.whl
 
 
 # help: dist-upload                    - upload a wheel distribution package
