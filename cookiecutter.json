@@ -16,6 +16,5 @@
     "Modified BSD license (3-clause)",
     "Not licensed for distribution (no license)"
   ],
-  "year": "{% now 'utc', '%Y' %}",
-  "_extensions": ["jinja2_time.TimeExtension"]
+  "year": "{% now 'utc', '%Y' %}"
 }
