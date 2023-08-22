@@ -161,7 +161,7 @@ Python package name.
 
 .. code-block:: console
 
-    (ccenv) $ cookiecutter ../cookiecutter-python-project/
+    (cc) $ cookiecutter ../cookiecutter-python-project/
     package_display_name [Package-Name]: abc 123
     package_name [abc_123]:
     package_short_description [A description of the package]: This is my abc 123 package.
