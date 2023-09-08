@@ -152,7 +152,7 @@ dist:
 	@python setup.py bdist_wheel
 
 
-# help: dist-test                      - test a whell distribution package
+# help: dist-test                      - test a wheel distribution package
 .PHONY: dist-test
 dist-test: dist
 	@cd dist && \
