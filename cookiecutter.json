@@ -8,13 +8,15 @@
   "github_user_name": "GithubUserName",
   "github_repo_name": "{{cookiecutter.package_name}}",
   "license": [
-    "Apache License, Version 2.0",
-    "Expat License",
-    "GNU GPL version 2",
-    "GNU GPL version 3",
-    "GNU AGPL version 3",
-    "Modified BSD license (3-clause)",
-    "Not licensed for distribution (no license)"
+    "Not licensed for distribution (no license)",
+    "AGPL-3.0-only",
+    "AGPL-3.0-or-later",
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "GPL-2.0-only",
+    "GPL-2.0-or-later",
+    "GPL-3.0-only",
+    "GPL-3.0-or-later"
   ],
   "year": "{% now 'utc', '%Y' %}"
 }
