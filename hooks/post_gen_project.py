@@ -13,11 +13,12 @@ LICENSE_CONFIG = LICENSE_DIR.joinpath("config.json")
 LICENSE_SELECTED = "{{ cookiecutter.license }}"
 
 
-def deploy_license():
+def deploy_license() -> None:
     """Move the selected license file into the project root
 
     Licenses not selected for the project are removed.
     """
+    sources = set()
     with LICENSE_CONFIG.open(mode="r", encoding="utf-8") as config_file:
         config = json.load(config_file)
         for license_option, license_data in config.items():
@@ -26,7 +27,9 @@ def deploy_license():
                     PROJECT_DIR.joinpath(license_data["destination"])
                 )
             else:
-                LICENSE_DIR.joinpath(license_data["source"]).unlink()
+                sources.add(LICENSE_DIR.joinpath(license_data["source"]))
+        for source in sources:
+            source.unlink()
     LICENSE_CONFIG.unlink()
     LICENSE_DIR.rmdir()
 
