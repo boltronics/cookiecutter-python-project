@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
     - uses: actions/checkout@v3
@@ -23,15 +23,14 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.dev.txt
-        pip install -r requirements.txt
+        python -m pip install -U pip
+        python -m pip install .[dev]
     - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip # This path is specific to Ubuntu
-        # Check for a cache hit for the corresponding dev requirements file
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.dev.txt') }}-${{ hashFiles('requirements.txt') }}
+        # Check for a cache hit for the corresponding pyproject.toml file
+        key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
         restore-keys: |
           ${{ runner.os }}-pip-
           ${{ runner.os }}-
