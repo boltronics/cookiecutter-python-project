@@ -1,3 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "{{cookiecutter.package_name}}"
+dynamic = ["version"]
+requires-python = ">= 3.11"
+dependencies = []
+authors = [
+  {
+    name = "{{cookiecutter.package_name}}",
+    email = "{{cookiecutter.email}}",
+  },
+]
+keywords=[
+  "{{cookiecutter.package_name}}"
+]
+description = "{{cookiecutter.package_short_description}}"
+readme = "README.rst"
+license = "{{cookiecutter.license}}"
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "coverage",
+  "isort",
+  "mypy",
+  "pylint",
+  "sphinx",
+  "twine",
+  "wheel",
+]
+
+[project.urls]
+Documentation = "http://{{cookiecutter.package_name}}.readthedocs.io"
+"Source code" = "https://github.com/{{cookiecutter.github_user_name}}/{{cookiecutter.github_repo_name}}"
+
+[tool.hatch.version]
+path = "src/{{cookiecutter.package_name}}/__about__.py"
+
 [tool.black]
 line-length = 79
 
