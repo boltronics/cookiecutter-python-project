@@ -30,9 +30,9 @@ help:
 
 # help: venv                           - create a dev virtual environment
 PIP_CMDS = \
-       source venv/bin/activate && \
-       pip install -U pip && \
-       pip install -e .[dev]
+	source venv/bin/activate && \
+	pip install -U pip && \
+	pip install -e .[dev]
 .PHONY: venv
 venv:
 	@rm -Rf venv
