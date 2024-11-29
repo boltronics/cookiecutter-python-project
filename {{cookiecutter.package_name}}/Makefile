@@ -22,9 +22,8 @@ help:
 # help: venv                           - create a dev virtual environment
 PIP_CMDS = \
        source venv/bin/activate && \
-       pip install pip --upgrade && \
-       pip install -r requirements.dev.txt && \
-       pip install -e .
+       pip install -U pip && \
+       pip install -e .[dev]
 .PHONY: venv
 venv:
 	@rm -Rf venv
@@ -114,8 +113,7 @@ check-lint:
 	@pylint --rcfile=.pylintrc \
 		{{cookiecutter.package_name}} \
 		examples \
-		tests \
-		setup.py
+		tests
 
 
 # help: check-static-analysis          - check code style compliance
@@ -149,7 +147,7 @@ serve-docs:
 # help: dist                           - create a wheel distribution package
 .PHONY: dist
 dist:
-	@python setup.py bdist_wheel
+	@hatch build
 
 
 # help: dist-test                      - test a wheel distribution package
