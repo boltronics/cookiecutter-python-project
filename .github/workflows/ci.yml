@@ -39,8 +39,7 @@ jobs:
     - name: Check example project
       run: |
         cd example
-        pip install -r requirements.dev.txt
-        pip install .
+        make venv
         make help
         make style
         make check-style
