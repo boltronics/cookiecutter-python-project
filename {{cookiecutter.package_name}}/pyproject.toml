@@ -50,6 +50,7 @@ classifiers = [
 dev = [
   "black",
   "coverage",
+  "hatch",
   "isort",
   "mypy",
   "pylint",
