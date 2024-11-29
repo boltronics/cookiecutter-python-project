@@ -15,10 +15,28 @@ keywords=[
 ]
 description = "{{cookiecutter.package_short_description}}"
 readme = "README.rst"
-license = "{{cookiecutter.license}}"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Developers",
+{%- if cookiecutter.license == "Not licensed for distribution (no license)" %}
+  "License :: Other/Proprietary License",
+{%- elif cookiecutter.license == "AGPL-3.0-only" %}
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+{%- elif cookiecutter.license == "AGPL-3.0-or-later" %}
+  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+{%- elif cookiecutter.license == "Apache-2.0" %}
+  "License :: OSI Approved :: Apache Software License",
+{%- elif cookiecutter.license == "BSD-3-Clause" %}
+  "License :: OSI Approved :: BSD License",
+{%- elif cookiecutter.license == "GPL-2.0-only" %}
+  "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+{%- elif cookiecutter.license == "GPL-2.0-or-later" %}
+  "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+{%- elif cookiecutter.license == "GPL-3.0-only" %}
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+{%- elif cookiecutter.license == "GPL-3.0-or-later" %}
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+{%- endif %}
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
