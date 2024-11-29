@@ -3,6 +3,13 @@
 # python command links to the appropriate virtual environment Python.
 
 MAKEFLAGS += --no-print-directory
+GIT := $(shell command -v git)
+
+
+define CHECK_GIT
+$(if $(GIT),,$(error "git command not available."))
+$(if $(wildcard .git),,$(error "Not a git repository."))
+endef
 
 
 # Do not remove this block. It is used by the 'help' rule when
@@ -38,13 +45,15 @@ venv:
 # help: clean                          - clean all files using .gitignore rules
 .PHONY: clean
 clean:
-	@git clean -X -f -d
+	$(call CHECK_GIT)
+	@$(GIT) clean -X -f -d
 
 
 # help: scrub                          - clean all files, even untracked files
 .PHONY: scrub
 scrub:
-	git clean -x -f -d
+	$(call CHECK_GIT)
+	@$(GIT) clean -x -f -d
 
 
 # help: test                           - run tests
