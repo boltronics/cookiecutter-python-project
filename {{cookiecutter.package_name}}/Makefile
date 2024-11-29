@@ -4,11 +4,13 @@
 
 MAKEFLAGS += --no-print-directory
 
+
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
 # help:
 # help: {{cookiecutter.package_display_name}} Makefile help
 # help:
+
 
 # help: help                           - display makefile help information
 .PHONY: help
@@ -31,7 +33,6 @@ venv:
 	/bin/bash -c "${PIP_CMDS}"
 	@echo -e "Enter virtual environment using:" \
 		"\n\n\t$ source venv/bin/activate\n"
-
 
 
 # help: clean                          - clean all files using .gitignore rules
