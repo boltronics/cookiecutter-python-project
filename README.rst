@@ -34,8 +34,7 @@ the following items:
   developer documentation.
 - An empty ``CHANGELOG.rst`` file. This file gets included in the user
   documentation.
-- A ``LICENSE`` file (or ``COPYING`` for GNU licenses) that defaults
-  to the Apache License version 2.0.
+- An option ``LICENSE`` file (or ``COPYING`` for GNU licenses).
 - An ``examples`` directory with a minimal quickstart example script. This
   script imports the package and prints the package version. It is also
   called by the unit test suite to ensure it always works.
@@ -77,9 +76,9 @@ cookiecutter using ``pip``. The example below shows how to do this.
 
 .. code-block:: console
 
-    $ python -m venv ccvenv --prompt cc
+    $ python -m venv --prompt cc ccvenv
     $ source ccvenv/bin/activate
-    (cc) $ pip install pip -U  # update pip to avoid any warnings
+    (cc) $ pip install -U pip  # update pip to avoid any warnings
     (cc) $ pip install cookiecutter
 
 You are now ready to create a new Python project from the Cookiecutter
@@ -132,11 +131,12 @@ using the new project.
   ReadTheDocs then remove any links to those sites. Affected files are:
 
   - README.rst
-  - setup.py
   - docs/source/index.rst
+  - pyproject.toml
 
-- Update any additional useful classifiers in ``setup.py``. The list of
-  available classifiers can be found `here <https://pypi.python.org/pypi?:action=list_classifiers>`_.
+- Update any additional useful classifiers in ``pyproject.toml``. The
+  list of available classifiers can be found `here
+  <https://pypi.python.org/pypi?:action=list_classifiers>`_.
 
 
 Example
@@ -162,24 +162,26 @@ Python package name.
 .. code-block:: console
 
     (cc) $ cookiecutter ../cookiecutter-python-project/
-    package_display_name [Package-Name]: abc 123
-    package_name [abc_123]:
-    package_short_description [A description of the package]: This is my abc 123 package.
-    version [0.0.1]:
-    full_name [Your Name]: First Last
-    email []:
-    github_user_name [GithubUserName]: flast
-    github_repo_name [abc_123]:
-    Select license:
-    1 - Apache License, Version 2.0
-    2 - Expat License
-    3 - GNU GPL version 2
-    4 - GNU GPL version 3
-    5 - GNU AGPL version 3
-    6 - Modified BSD license (3-clause)
-    7 - Not licensed for distribution (no license)
-    Choose from 1, 2, 3, 4, 5, 6, 7 [1]:
-    year [2023]:
+    [1/10] package_display_name (Package-Name): abc 123
+    [2/10] package_name (abc_123):
+    [3/10] package_short_description (A description of the package): This is my abc 123 package.
+    [4/10] version (0.0.1):
+    [5/10] full_name (Your Name): First Last
+    [6/10] email ():
+    [7/10] github_user_name (GithubUserName): flast
+    [8/10] github_repo_name (abc_123):
+    [9/10] Select license
+      1 - Not licensed for distribution (no license)
+      2 - AGPL-3.0-only
+      3 - AGPL-3.0-or-later
+      4 - Apache-2.0
+      5 - BSD-3-Clause
+      6 - GPL-2.0-only
+      7 - GPL-2.0-or-later
+      8 - GPL-3.0-only
+      9 - GPL-3.0-or-later
+      Choose from [1/2/3/4/5/6/7/8/9] (1):
+    [10/10] year (2024):
 
 The project has been created in the ``abc_123`` directory.
 

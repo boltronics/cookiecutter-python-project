@@ -3,12 +3,21 @@
 # python command links to the appropriate virtual environment Python.
 
 MAKEFLAGS += --no-print-directory
+GIT := $(shell command -v git)
+
+
+define CHECK_GIT
+$(if $(GIT),,$(error "git command not available."))
+$(if $(wildcard .git),,$(error "Not a git repository."))
+endef
+
 
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
 # help:
 # help: {{cookiecutter.package_display_name}} Makefile help
 # help:
+
 
 # help: help                           - display makefile help information
 .PHONY: help
@@ -21,10 +30,9 @@ help:
 
 # help: venv                           - create a dev virtual environment
 PIP_CMDS = \
-       source venv/bin/activate && \
-       pip install pip --upgrade && \
-       pip install -r requirements.dev.txt && \
-       pip install -e .
+	source venv/bin/activate && \
+	pip install -U pip && \
+	pip install -e .[dev]
 .PHONY: venv
 venv:
 	@rm -Rf venv
@@ -34,17 +42,18 @@ venv:
 		"\n\n\t$ source venv/bin/activate\n"
 
 
-
 # help: clean                          - clean all files using .gitignore rules
 .PHONY: clean
 clean:
-	@git clean -X -f -d
+	$(call CHECK_GIT)
+	@$(GIT) clean -X -f -d
 
 
 # help: scrub                          - clean all files, even untracked files
 .PHONY: scrub
 scrub:
-	git clean -x -f -d
+	$(call CHECK_GIT)
+	@$(GIT) clean -x -f -d
 
 
 # help: test                           - run tests
@@ -114,8 +123,7 @@ check-lint:
 	@pylint --rcfile=.pylintrc \
 		{{cookiecutter.package_name}} \
 		examples \
-		tests \
-		setup.py
+		tests
 
 
 # help: check-static-analysis          - check code style compliance
@@ -149,7 +157,7 @@ serve-docs:
 # help: dist                           - create a wheel distribution package
 .PHONY: dist
 dist:
-	@python setup.py bdist_wheel
+	@hatch build
 
 
 # help: dist-test                      - test a wheel distribution package
