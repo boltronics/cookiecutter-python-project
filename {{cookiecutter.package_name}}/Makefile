@@ -120,8 +120,7 @@ check-types:
 # help: check-lint                     - run static analysis checks
 .PHONY: check-lint
 check-lint:
-	@pylint --rcfile=.pylintrc \
-		{{cookiecutter.package_name}} \
+	@pylint {{cookiecutter.package_name}} \
 		examples \
 		tests
 
