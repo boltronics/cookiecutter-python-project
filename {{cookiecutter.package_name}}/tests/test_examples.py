@@ -25,7 +25,7 @@ class ExamplesTestCase(unittest.TestCase):
     in a subprocess.
     """
 
-    def run_in_venv(self, filepath, timeout=5.0, **kwargs):
+    def run_in_venv(self, filepath: str, timeout = 5.0, **kwargs) -> bool:
         """Run a Python script in a virtual env in a subprocess.
 
         filepath references must be relative to the repo root directory.

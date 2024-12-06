@@ -2,7 +2,7 @@ Cookiecutter Python Project
 ###########################
 
 This project contains a Cookiecutter template that helps you create new Python
-3.7+ package projects by automatically generating most of the boiler plate
+3.11+ package projects by automatically generating most of the boiler plate
 content for you.
 
 Cookiecutter is a command-line utility that creates projects from templates.
@@ -21,14 +21,15 @@ the following items:
 - A Makefile that automates many common developer tasks, such as:
 
   - Creating a Virtual environment
-  - Checking code style.
-  - Performing static analysis checks.
-  - Running unit tests.
-  - Checking code coverage.
-  - Generating documentation.
+  - Checking and formatting code style with ``black`` and ``isort``.
+  - Performing static analysis checks with ``pylint``.
+  - Performing type checking with ``mypy``.
+  - Running unit tests with Python's ``unittest``.
+  - Checking code coverage with ``coverage``.
+  - Generating documentation with ``Sphinx``.
   - Generating, testing and uploading a project release to PyPI.
 
-- A ``setup.py`` file used to generate project install and releases.
+- A ``pyproject.toml`` file used to manage nearly all project configuration.
 - A ``CONTRIBUTING.rst`` guide. On Github this file is shown when sending
   a pull request or an issue. This file also gets included in the generated
   developer documentation.
@@ -38,9 +39,8 @@ the following items:
 - An ``examples`` directory with a minimal quickstart example script. This
   script imports the package and prints the package version. It is also
   called by the unit test suite to ensure it always works.
-- A ``tests`` directory containing a basic unit test (using unittest) and
-  a shell script that can be used to test a wheel distribution of the
-  package.
+- A ``tests`` directory containing a basic unit test and a shell
+  script that can be used to test a wheel distribution of the package.
 - A Github Actions continuous integration configuration.
 - A ``docs`` directory with pre-configured Sphinx documentation containing:
 
