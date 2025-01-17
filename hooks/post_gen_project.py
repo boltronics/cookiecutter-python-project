@@ -1,39 +1,35 @@
 #!/usr/bin/env python3
 """Pre-gen project hook script
 
-Takes care of deploying the correct license file.
+Takes care of setting the correct license file in pyproject.toml.
 """
 
-import json
 from pathlib import Path
+from shutil import copy
+
 
 PROJECT_DIR = Path(".")
 LICENSE_DIR = PROJECT_DIR.joinpath("licenses")
-LICENSE_CONFIG = LICENSE_DIR.joinpath("config.json")
+LICENSES = {{cookiecutter._license_map | jsonify}}
 LICENSE_SELECTED = "{{ cookiecutter.license }}"
+SELECTED_LICENSE_SOURCE = "{{ cookiecutter.__license_src }}"
+SELECTED_LICENSE_DESTINATION = "{{ cookiecutter.__license_dest }}"
 
 
 def deploy_license() -> None:
-    """Move the selected license file into the project root
-
-    Licenses not selected for the project are removed.
-    """
+    """Move the selected license file into the project root"""
     sources: set[Path] = set()
-    selected_source = None
-    with LICENSE_CONFIG.open(mode="r", encoding="utf-8") as config_file:
-        config = json.load(config_file)
-        for license_option, license_data in config.items():
-            source_path = LICENSE_DIR.joinpath(license_data["source"])
-            if license_option == LICENSE_SELECTED:
-                selected_source = source_path
-                destination_path = PROJECT_DIR.joinpath(license_data["destination"])
-                source_path.rename(destination_path)
-                sources.discard(source_path)
-            elif license_data["source"] != selected_source:
-                sources.add(source_path)
-        for source in sources:
-            source.unlink()
-    LICENSE_CONFIG.unlink()
+    for license_option, license_config in LICENSES.items():
+        source_path = LICENSE_DIR.joinpath(license_config["source"])
+        if license_option == LICENSE_SELECTED:
+            destination_path = PROJECT_DIR.joinpath(
+                SELECTED_LICENSE_DESTINATION
+            )
+            copy(source_path, destination_path)
+        elif license_option != SELECTED_LICENSE_SOURCE:
+            sources.add(source_path)
+    for source in sources:
+        source.unlink()
     LICENSE_DIR.rmdir()
 
 

@@ -1,6 +1,6 @@
 {
   "package_display_name": "Package-Name",
-  "package_name": "{{cookiecutter.package_display_name.lower().replace(' ', '_').replace('-', '_')}}",
+  "package_name": "{{ cookiecutter.package_display_name.lower().replace(' ', '_').replace('-', '_') }}",
   "package_short_description": "A description of the package",
   "version": "0.0.1",
   "full_name": "Your Name",
@@ -18,5 +18,17 @@
     "GPL-3.0-only",
     "GPL-3.0-or-later"
   ],
-  "year": "{% now 'utc', '%Y' %}"
+  "year": "{% now 'utc', '%Y' %}",
+  "_license_map": {
+    "AGPL-3.0-only": {"source": "AGPL3", "destination": "COPYING"},
+    "AGPL-3.0-or-later": {"source": "AGPL3", "destination": "COPYING"},
+    "Apache-2.0": {"source": "APACHE-2.0", "destination": "LICENSE"},
+    "BSD-3-Clause": {"source": "BSD-3-CLAUSE", "destination": "LICENSE"},
+    "GPL-2.0-only": {"source": "GPL2", "destination": "COPYING"},
+    "GPL-2.0-or-later": {"source": "GPL2", "destination": "COPYING"},
+    "GPL-3.0-only": {"source": "GPL3", "destination": "COPYING"},
+    "GPL-3.0-or-later": {"source": "GPL3", "destination": "COPYING"}
+  },
+  "__license_src": "{{ cookiecutter._license_map.get(cookiecutter.license, {}).get('source', '') }}",
+  "__license_dest": "{{ cookiecutter._license_map.get(cookiecutter.license, {}).get('destination', '') }}"
 }
