@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """Sphinx configuration"""
 
 # import os
@@ -33,7 +31,8 @@ with init_file.open(mode="r", encoding="utf-8") as file_handle:
     if match:
         short_version = match.group(1)
     else:
-        raise RuntimeError(f"Cannot find __version__ in {init_file}")
+        error = f"Cannot find __version__ in {init_file}"
+        raise RuntimeError(error)
 
 
 # -- General configuration ------------------------------------------------

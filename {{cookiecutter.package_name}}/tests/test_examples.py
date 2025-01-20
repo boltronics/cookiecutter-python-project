@@ -27,7 +27,7 @@ class ExamplesTestCase(unittest.TestCase):
     """
 
     def run_in_venv(
-        self, filepath: str, timeout: int | float = 5, **kwargs: dict[str, Any]
+        self, filepath: str, timeout: float = 5, **kwargs: dict[str, Any]
     ) -> bool:
         """Run a Python script in a virtual env in a subprocess.
 
@@ -61,13 +61,12 @@ class ExamplesTestCase(unittest.TestCase):
         finally:
             os.chdir(original_cwd)
 
-        success = returncode == 0
-        return success
+        return returncode == 0
 
     def test_quickstart_example(self) -> None:
         """check quickstart example"""
-        self.assertTrue(
-            self.run_in_venv(os.path.join("examples", "quickstart.py"))
+        assert (
+            self.run_in_venv(os.path.join("examples", "quickstart.py")) is True
         )
 
 

@@ -10,8 +10,8 @@ class VersionTestCase(unittest.TestCase):
 
     def test_version(self) -> None:
         """check {{cookiecutter.package_name}} exposes a version attribute"""
-        self.assertTrue(hasattr({{cookiecutter.package_name}}, "__version__"))
-        self.assertIsInstance({{cookiecutter.package_name}}.__version__, str)
+        assert hasattr({{cookiecutter.package_name}}, "__version__") is True
+        assert isinstance({{cookiecutter.package_name}}.__version__, str)
 
 
 if __name__ == "__main__":
