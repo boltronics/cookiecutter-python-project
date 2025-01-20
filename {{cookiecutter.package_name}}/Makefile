@@ -150,7 +150,7 @@ check-docs:
 # help: serve-docs                     - serve project html documentation
 .PHONY: serve-docs
 serve-docs:
-	@cd docs/build; python -m http.server --bind 127.0.0.1
+	@cd docs/build/html; python -m http.server --bind 127.0.0.1
 
 
 # help: dist                           - create a wheel distribution package
