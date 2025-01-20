@@ -7,6 +7,7 @@ import os
 import shlex
 import subprocess
 import unittest
+from typing import Any
 
 # Use the current virtual environment when executing the example scripts.
 VENV_DIR = os.environ.get("VIRTUAL_ENV")
@@ -25,7 +26,9 @@ class ExamplesTestCase(unittest.TestCase):
     in a subprocess.
     """
 
-    def run_in_venv(self, filepath: str, timeout = 5.0, **kwargs) -> bool:
+    def run_in_venv(
+        self, filepath: str, timeout: int | float = 5, **kwargs: dict[str, Any]
+    ) -> bool:
         """Run a Python script in a virtual env in a subprocess.
 
         filepath references must be relative to the repo root directory.
@@ -61,7 +64,7 @@ class ExamplesTestCase(unittest.TestCase):
         success = returncode == 0
         return success
 
-    def test_quickstart_example(self):
+    def test_quickstart_example(self) -> None:
         """check quickstart example"""
         self.assertTrue(
             self.run_in_venv(os.path.join("examples", "quickstart.py"))
