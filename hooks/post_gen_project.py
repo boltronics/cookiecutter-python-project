@@ -26,8 +26,7 @@ def deploy_license() -> None:
                 SELECTED_LICENSE_DESTINATION
             )
             copy(source_path, destination_path)
-        elif license_option != SELECTED_LICENSE_SOURCE:
-            sources.add(source_path)
+        sources.add(source_path)
     for source in sources:
         source.unlink()
     LICENSE_DIR.rmdir()
