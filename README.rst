@@ -284,7 +284,11 @@ By splitting the tools out into separate environments, we save time by
 only installing packages that we actually need.
 
 Take a look at the pyproject.toml configuration file to see precisely
-what each script does, and make any adjustments as desired.
+what each script does, and make any adjustments as desired. You can
+also define environments with one or more different versions of Python
+to run tests or for development. See the Hatch documentation on
+`matrices <https://hatch.pypa.io/1.9/environment/#matrix>`_ for
+details.
 
 If you have make installed, the included Makefile provides handy
 shortcuts for various Hatch commands and the configured scripts. You
