@@ -49,22 +49,116 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 
-[project.optional-dependencies]
-dev = [
-  "black",
-  "coverage",
-  "hatch",
-  "isort",
-  "mypy",
-  "pylint",
-  "sphinx",
-  "twine",
-  "wheel",
-]
-
 [project.urls]
 Documentation = "http://{{cookiecutter.package_name}}.readthedocs.io"
 "Source code" = "https://github.com/{{cookiecutter.github_user_name}}/{{cookiecutter.github_repo_name}}"
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+  "/CHANGELOG.rst",
+  "/README.rst",
+  "/examples",
+  "/pyproject.toml",
+  "/src/{{cookiecutter.package_name}}/",
+  "/tests",
+{%- if cookiecutter.license != "Not licensed for distribution (no license)" %}
+  "/{{ cookiecutter.license }}",
+{%- endif %}
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{cookiecutter.package_name}}"]
+
+[tool.hatch.envs.hatch-test]
+extra-dependencies = [
+  "pytest",
+]
+
+[tool.hatch.envs.coverage]
+extra-dependencies = [
+  "coverage",
+]
+
+[tool.hatch.envs.coverage.scripts]
+run-coverage-erase = "coverage erase"
+run-coverage-tests = "coverage run -m unittest discover -s tests"
+run-coverage = [
+  "run-coverage-erase",
+  "run-coverage-tests",
+]
+run-coverage-verbose = [
+  "run-coverage-erase",
+  "run-coverage-tests -v",
+]
+run-coverage-report = "coverage report"
+run-coverage-html = "coverage html"
+run-reports = [
+  "run-coverage-report",
+  "run-coverage-html",
+]
+run-new-reports = [
+  "run-coverage",
+  "run-reports",
+]
+
+[tool.hatch.envs.docs]
+extra-dependencies = [
+  "sphinx",
+]
+
+[tool.hatch.envs.docs.scripts]
+build = [
+  """
+  rm -rf \
+    docs/source/api/sitemap_generator*.rst \
+    docs/source/api/modules.rst \
+    docs/build/*
+  """,
+  "sphinx-build -M html docs/source docs/build",
+]
+build-dummy = [
+  "sphinx-build -M dummy docs/source docs/build",
+]
+
+[tool.hatch.envs.lint]
+extra-dependencies = [
+  "pylint",
+]
+
+[tool.hatch.envs.lint.scripts]
+check = "pylint src tests examples"
+
+[tool.hatch.envs.style]
+detached = true
+extra-dependencies = [
+  "black",
+  "flake8",
+  "isort",
+]
+
+[tool.hatch.envs.style.scripts]
+run-flake8 = "flake8 --ignore=E203,W503 src tests"
+run-isort = "isort src tests --profile black"
+run-isort-check = "run-isort --check-only"
+run-black = "black examples src tests"
+run-black-check = "run-black --check"
+check = [
+  "run-isort-check",
+  "run-black-check",
+  "run-flake8",
+]
+format = [
+  "run-isort",
+  "run-black",
+]
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy",
+]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy src tests"
 
 [tool.hatch.version]
 path = "src/{{cookiecutter.package_name}}/__init__.py"
