@@ -18,30 +18,31 @@ The Python project structure produced by this Cookiecutter template contains
 the following items:
 
 - A minimal README.rst file.
-- A Makefile that automates many common developer tasks, such as:
+- A (non-essential) Makefile that taps into a Hatch project manager
+  setup to automate many common developer tasks, such as:
 
-  - Creating a Virtual environment
+  - The usage of virtual environments.
   - Checking and formatting code style with ``black`` and ``isort``.
   - Performing static analysis checks with ``pylint``.
   - Performing type checking with ``mypy``.
-  - Running unit tests with Python's ``unittest``.
+  - Running unit tests with ``pytest``/``unittest``.
   - Checking code coverage with ``coverage``.
   - Generating documentation with ``Sphinx``.
   - Generating, testing and uploading a project release to PyPI.
 
 - A ``pyproject.toml`` file used to manage nearly all project configuration.
-- A ``CONTRIBUTING.rst`` guide. On Github this file is shown when sending
+- A ``CONTRIBUTING.rst`` guide. On GitHub this file is shown when sending
   a pull request or an issue. This file also gets included in the generated
   developer documentation.
 - An empty ``CHANGELOG.rst`` file. This file gets included in the user
   documentation.
-- An option ``LICENSE`` file (or ``COPYING`` for GNU licenses).
+- An optional ``LICENSE`` file (or ``COPYING`` for GNU licenses).
 - An ``examples`` directory with a minimal quickstart example script. This
   script imports the package and prints the package version. It is also
   called by the unit test suite to ensure it always works.
 - A ``tests`` directory containing a basic unit test and a shell
   script that can be used to test a wheel distribution of the package.
-- A Github Actions continuous integration configuration.
+- A GitHub Actions continuous integration configuration.
 - A ``docs`` directory with pre-configured Sphinx documentation containing:
 
   - A minimal ``index.rst`` page
@@ -56,7 +57,7 @@ the following items:
 
 It is assumed that the new Python package will eventually be:
 
-- hosted on Github (or perhaps GitLab)
+- hosted on GitHub (or perhaps GitLab)
 - published to PyPI
 - linked to ReadTheDocs.
 
@@ -93,8 +94,8 @@ simply navigate to a directory where you want to create the new project, then
 run the ``cookiecutter`` command with a command line argument referencing this
 template.
 
-The easiest method is to reference this template via its Github URL (where 'gh'
-is a shortened form for Github):
+The easiest method is to reference this template via its GitHub URL (where 'gh'
+is a shortened form for GitHub):
 
 .. code-block:: console
 
@@ -130,9 +131,10 @@ using the new project.
 - If you do not plan to publish project artifacts at GitHub, PyPI or
   ReadTheDocs then remove any links to those sites. Affected files are:
 
-  - README.rst
-  - docs/source/index.rst
-  - pyproject.toml
+  - README.rst (references to PyPI and ReadTheDocs)
+  - docs/source/index.rst (references to PyPI)
+  - pyproject.toml (references to GitHub and ReadTheDocs under
+    the `[project.urls]` section)
 
 - Update any additional useful classifiers in ``pyproject.toml``. The
   list of available classifiers can be found `here
@@ -151,7 +153,7 @@ Setup Steps section above which provides a virtual environment with
 cookiecutter installed into it.
 
 After running the cookiecutter command and passing it a reference to this
-template the first question it asks for is the package display name. This is
+template, the first question it asks for is the package display name. This is
 the human friendly label that will be used in docs to refer to the project. It
 is also used to create the package name so it should not contain special
 characters that are invalid when used in a Python attribute. It can have spaces
@@ -180,8 +182,8 @@ Python package name.
       7 - GPL-2.0-or-later
       8 - GPL-3.0-only
       9 - GPL-3.0-or-later
-      Choose from [1/2/3/4/5/6/7/8/9] (1):
-    [10/10] year (2024):
+      Choose from [1/2/3/4/5/6/7/8/9] (1): 9
+    [10/10] year (2025):
 
 The project has been created in the ``abc_123`` directory.
 
@@ -189,38 +191,160 @@ The project has been created in the ``abc_123`` directory.
 
     $ cd abc_123
 
-We can now kick the tires of this new project by performing some initial
-project checks.
-
-First, let's create a project specific virtual environment and activate it.
-This will install all of the project's development dependencies as well as
-the project itself. The project will be installed as an editable package (by
-using the ``-e`` flag to ``pip``).
+If you are planning to use git, it might be a good idea to create a
+new repository at this point.
 
 .. code-block:: console
 
-    $ make venv
-    ...
-    Enter virtual environment using:
+    $ git init
+    $ git add .
+    $ git commit -m 'Initial cookiecutter-python-project setup'
 
-      	source venv/abc_123/bin/activate
+With that out of the way, it will be easy to use git to undo any
+potential mistakes made while experimenting.
 
-    $ source venv/abc_123/bin/activate
+We can now kick the tires of this new project by performing some initial
+project checks.
+
+First, let's enter a project-specific virtual environment. Hatch
+will install any of the project's dependencies (if added to pyproject.toml) as well as
+the project itself as an editable package.
+
+.. code-block:: console
+
+    $ hatch shell
     (abc_123) $
+
+You can exit the environment by typing `exit` or using the Ctrl+d shortcut.
 
 Now that we have a virtual environment we can check the remaining convenience
 functions provided by the Makefile.
 
+There are a number of other virtual environments available to you, and
+most of these have their own packages and scripts to ease
+development. You can bring up a summary like so:
+
 .. code-block:: console
 
-    (abc_123) $ make style
-    (abc_123) $ make check-style
-    (abc_123) $ make check-static-analysis
-    (abc_123) $ make test
-    (abc_123) $ make test-verbose
-    (abc_123) $ make coverage
-    (abc_123) $ make check-docs
-    (abc_123) $ make docs
-    (abc_123) $ make serve-docs  # in browser navigate to http://localhost:8000/html
-    (abc_123) $ make dist
-    (abc_123) $ make dist-test
+    $ hatch env show
+                            Standalone
+    ┏━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
+    ┃ Name     ┃ Type    ┃ Dependencies ┃ Scripts              ┃
+    ┡━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
+    │ default  │ virtual │              │                      │
+    ├──────────┼─────────┼──────────────┼──────────────────────┤
+    │ coverage │ virtual │ coverage     │ run-coverage         │
+    │          │         │              │ run-coverage-erase   │
+    │          │         │              │ run-coverage-html    │
+    │          │         │              │ run-coverage-report  │
+    │          │         │              │ run-coverage-tests   │
+    │          │         │              │ run-coverage-verbose │
+    │          │         │              │ run-new-reports      │
+    │          │         │              │ run-reports          │
+    ├──────────┼─────────┼──────────────┼──────────────────────┤
+    │ docs     │ virtual │ sphinx       │ build                │
+    │          │         │              │ build-dummy          │
+    ├──────────┼─────────┼──────────────┼──────────────────────┤
+    │ lint     │ virtual │ pylint       │ check                │
+    ├──────────┼─────────┼──────────────┼──────────────────────┤
+    │ style    │ virtual │ black        │ check                │
+    │          │         │ flake8       │ format               │
+    │          │         │ isort        │ run-black            │
+    │          │         │              │ run-black-check      │
+    │          │         │              │ run-flake8           │
+    │          │         │              │ run-isort            │
+    │          │         │              │ run-isort-check      │
+    ├──────────┼─────────┼──────────────┼──────────────────────┤
+    │ types    │ virtual │ mypy         │ check                │
+    └──────────┴─────────┴──────────────┴──────────────────────┘
+    $
+
+You can enter use these virtual environments like so:
+
+.. code-block:: console
+
+    $ hatch shell types
+    (types) $ pip freeze
+    # Editable Git install with no remote (abc_123==0.0.1)
+    -e /home/abolte/tmp/cookiecutter-testing/abc_123
+    mypy==1.14.1
+    mypy-extensions==1.0.0
+    typing_extensions==4.12.2
+    (types) $ exit
+    $ hatch run types:check
+    Success: no issues found in 4 source files
+    $
+
+In other words, `hatch run ENV:SCRIPT` (replacing *ENV* with something
+from the Name column in the above table, and *SCRIPT* likewise with
+something from the Scripts column) will allow various tools to be
+executed in a clean environment.
+
+By splitting the tools out into separate environments, we save time by
+only installing packages that we actually need.
+
+Take a look at the pyproject.toml configuration file to see precisely
+what each script does, and make any adjustments as desired.
+
+If you have make installed, the included Makefile provides handy
+shortcuts for various Hatch commands and the configured scripts. You
+can print a summary of options via the `make help` command, like so:
+
+.. code-block:: console
+
+    $ make help
+
+    abc 123 Makefile help
+
+    help                           - display makefile help information
+    venv                           - enter a dev virtual environment
+    clean                          - clean all files using .gitignore rules
+    scrub                          - clean all files, even untracked files
+    test                           - run tests
+    test-verbose                   - run tests [verbosely]
+    coverage                       - perform test coverage checks
+    format                         - perform code style format
+    check-format                   - check code format compliance
+    sort-imports                   - apply import sort ordering
+    check-sort-imports             - check imports are sorted
+    style                          - perform code style format
+    check-style                    - check code style compliance
+    check-types                    - check type hint annotations
+    check-lint                     - run static analysis checks
+    check-static-analysis          - check code style compliance
+    docs                           - generate project documentation
+    check-docs                     - quick check docs consistency
+    serve-docs                     - serve project html documentation
+    dist                           - create a wheel distribution package
+    dist-test                      - test a wheel distribution package
+    dist-upload                    - upload a wheel distribution package
+
+
+Here is an example of one in action:
+
+.. code-block:: console
+
+    $ make coverage
+    cmd [1] | coverage erase
+    cmd [2] | coverage run -m unittest discover -s tests
+    ..
+    ----------------------------------------------------------------------
+    Ran 2 tests in 0.021s
+
+    OK
+    cmd [3] | coverage report
+    Name                      Stmts   Miss Branch BrPart  Cover
+    -----------------------------------------------------------
+    src/abc_123/__init__.py       1      0      0      0   100%
+    -----------------------------------------------------------
+    TOTAL                         1      0      0      0   100%
+    cmd [4] | coverage html
+    Wrote HTML report to docs/source/_static/coverage/index.html
+    $
+
+
+Suggestions? Contributions? Problems?
+=====================================
+
+Please open an Issue or a Pull Request! I'm open to hearing any
+suggestions.
