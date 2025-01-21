@@ -163,7 +163,7 @@ Python package name.
 
 .. code-block:: console
 
-    (cc) $ cookiecutter ../cookiecutter-python-project/
+    (cc) $ cookiecutter gh:boltronics/cookiecutter-python-project
     [1/10] package_display_name (Package-Name): abc 123
     [2/10] package_name (abc_123):
     [3/10] package_short_description (A description of the package): This is my abc 123 package.
