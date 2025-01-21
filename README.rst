@@ -324,22 +324,59 @@ Here is an example of one in action:
 
 .. code-block:: console
 
-    $ make coverage
-    cmd [1] | coverage erase
-    cmd [2] | coverage run -m unittest discover -s tests
-    ..
-    ----------------------------------------------------------------------
-    Ran 2 tests in 0.021s
+    $ make test-verbose
+    ────────────────────────────── hatch-test.py3.13 ───────────────────────────────
+    ============================= test session starts ==============================
+    platform linux -- Python 3.13.1, pytest-8.3.4, pluggy-1.5.0 -- venvs/hatch-test.py3.13/bin/python3
+    cachedir: .pytest_cache
+    rootdir: /abc_123
+    configfile: pyproject.toml
+    plugins: mock-3.14.0, rerunfailures-14.0, xdist-3.6.1
+    collected 2 items
 
-    OK
-    cmd [3] | coverage report
+    tests/test_examples.py::ExamplesTestCase::test_quickstart_example PASSED [ 50%]
+    tests/test_version.py::VersionTestCase::test_version PASSED              [100%]
+
+    ============================== 2 passed in 0.09s ===============================
+    ────────────────────────────── hatch-test.py3.12 ───────────────────────────────
+    ============================= test session starts ==============================
+    platform linux -- Python 3.12.8, pytest-8.3.4, pluggy-1.5.0 -- venvs/hatch-test.py3.12/bin/python3
+    cachedir: .pytest_cache
+    rootdir: /abc_123
+    configfile: pyproject.toml
+    plugins: mock-3.14.0, rerunfailures-14.0, xdist-3.6.1
+    collected 2 items
+
+    tests/test_examples.py::ExamplesTestCase::test_quickstart_example PASSED [ 50%]
+    tests/test_version.py::VersionTestCase::test_version PASSED              [100%]
+
+    ============================== 2 passed in 0.09s ===============================
+    ────────────────────────────── hatch-test.py3.11 ───────────────────────────────
+    ============================= test session starts ==============================
+    platform linux -- Python 3.11.11, pytest-8.3.4, pluggy-1.5.0 -- venvs/hatch-test.py3.11/bin/python3
+    cachedir: .pytest_cache
+    rootdir: /abc_123
+    configfile: pyproject.toml
+    plugins: mock-3.14.0, rerunfailures-14.0, xdist-3.6.1
+    collected 2 items
+
+    tests/test_examples.py::ExamplesTestCase::test_quickstart_example PASSED [ 50%]
+    tests/test_version.py::VersionTestCase::test_version PASSED              [100%]
+
+    ============================== 2 passed in 0.08s ===============================
+
+    Skipped 3 incompatible environments:
+    hatch-test.py3.10 -> cannot locate Python: 3.10
+    hatch-test.py3.9 -> cannot locate Python: 3.9
+    hatch-test.py3.8 -> cannot locate Python: 3.8
+    Combined data file .coverage.dragon.311786.XZHVzPhx
+    Combined data file .coverage.dragon.311791.XRWZtnFx
+    Skipping duplicate data .coverage.dragon.311797.XTgleYIx
     Name                      Stmts   Miss Branch BrPart  Cover
     -----------------------------------------------------------
     src/abc_123/__init__.py       1      0      0      0   100%
     -----------------------------------------------------------
     TOTAL                         1      0      0      0   100%
-    cmd [4] | coverage html
-    Wrote HTML report to docs/source/_static/coverage/index.html
     $
 
 
