@@ -27,7 +27,10 @@ class ExamplesTestCase(unittest.TestCase):
     """
 
     def run_in_venv(
-        self, filepath: str, timeout: float = 5, **kwargs: dict[str, Any]
+        self,
+        filepath: str,
+        timeout: float = 5,
+        popen_kwargs: dict[str, Any] | None = None,
     ) -> bool:
         """Run a Python script in a virtual env in a subprocess.
 
@@ -46,15 +49,21 @@ class ExamplesTestCase(unittest.TestCase):
         if "LD_LIBRARY_PATH" in os.environ:
             env["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"]
 
+        if popen_kwargs is None:
+            popen_kwargs = {}
+
+        popen_default_kwargs = {
+            "env": env,
+            "stdout": subprocess.PIPE,
+            "stderr": subprocess.PIPE,
+            "shell": False,
+        }
+
         try:
             os.chdir(script_dir)
             with subprocess.Popen(
-                args,
-                env=env,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                shell=False,
-                **kwargs,
+                args=args,
+                **{**popen_default_kwargs, **popen_kwargs},
             ) as proc:
                 _out, _err = proc.communicate(timeout=timeout)
                 returncode = proc.returncode
