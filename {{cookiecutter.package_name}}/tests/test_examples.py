@@ -40,7 +40,10 @@ class ExamplesTestCase(unittest.TestCase):
         script_dir = os.path.join(REPO_DIR, os.path.dirname(filepath))
         filename = os.path.basename(filepath)
         args = shlex.split(
-            f'/bin/bash -c "source {VENV_DIR}/bin/activate && python {filename}"'
+            (
+                f'/bin/bash -c "source {VENV_DIR}/bin/activate '
+                f'&& python {filename}"'
+            )
         )
 
         env = {}
