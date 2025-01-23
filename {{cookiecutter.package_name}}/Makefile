@@ -28,18 +28,10 @@ help:
 		sed 's/\# help\://'
 
 
-# help: venv                           - create a dev virtual environment
-PIP_CMDS = \
-	source venv/bin/activate && \
-	pip install -U pip && \
-	pip install -e .[dev]
+# help: venv                           - enter a dev virtual environment
 .PHONY: venv
 venv:
-	@rm -Rf venv
-	@python3 -m venv venv --prompt {{cookiecutter.package_name}}
-	/bin/bash -c "${PIP_CMDS}"
-	@echo -e "Enter virtual environment using:" \
-		"\n\n\t$ source venv/bin/activate\n"
+	@hatch shell
 
 
 # help: clean                          - clean all files using .gitignore rules
@@ -59,46 +51,43 @@ scrub:
 # help: test                           - run tests
 .PHONY: test
 test:
-	@python -m unittest discover -s tests
+	@hatch test --all --cover
 
 
 # help: test-verbose                   - run tests [verbosely]
 .PHONY: test-verbose
 test-verbose:
-	@python -m unittest discover -s tests -v
+	@hatch test -v --all --cover
 
 
 # help: coverage                       - perform test coverage checks
 .PHONY: coverage
 coverage:
-	@coverage erase
-	coverage run -m unittest discover -s tests -v
-	@coverage html
-	@coverage report
+	@hatch run coverage:run-new-reports
 
 
 # help: format                         - perform code style format
 .PHONY: format
 format:
-	@black {{cookiecutter.package_name}} tests examples
+	@hatch run style:run-black
 
 
 # help: check-format                   - check code format compliance
 .PHONY: check-format
 check-format:
-	@black --check {{cookiecutter.package_name}} tests examples
+	@hatch run style:run-black-check
 
 
 # help: sort-imports                   - apply import sort ordering
 .PHONY: sort-imports
 sort-imports:
-	@isort . --profile black
+	@hatch run style:run-isort
 
 
 # help: check-sort-imports             - check imports are sorted
 .PHONY: check-sort-imports
 check-sort-imports:
-	@isort . --check-only --profile black
+	@hatch run style:run-isort-check
 
 
 # help: style                          - perform code style format
@@ -114,15 +103,13 @@ check-style: check-sort-imports check-format
 # help: check-types                    - check type hint annotations
 .PHONY: check-types
 check-types:
-	mypy -p {{cookiecutter.package_name}} --ignore-missing-imports
+	@hatch run types:check
 
 
 # help: check-lint                     - run static analysis checks
 .PHONY: check-lint
 check-lint:
-	@pylint {{cookiecutter.package_name}} \
-		examples \
-		tests
+	@hatch run lint:check
 
 
 # help: check-static-analysis          - check code style compliance
@@ -133,24 +120,19 @@ check-static-analysis: check-lint check-types
 # help: docs                           - generate project documentation
 .PHONY: docs
 docs: coverage
-	@cd docs && \
-	rm -rf \
-		source/api/{{cookiecutter.package_name}}*.rst \
-		source/api/modules.rst \
-		build/*
-	@cd docs && make html
+	@hatch run docs:build
 
 
 # help: check-docs                     - quick check docs consistency
 .PHONY: check-docs
 check-docs:
-	@cd docs; make dummy
+	@hatch run docs:build-dummy
 
 
 # help: serve-docs                     - serve project html documentation
 .PHONY: serve-docs
 serve-docs:
-	@cd docs/build; python -m http.server --bind 127.0.0.1
+	@hatch run python -m http.server -b 127.0.0.1 -d docs/build/html
 
 
 # help: dist                           - create a wheel distribution package
@@ -170,7 +152,7 @@ dist-test: dist
 # help: dist-upload                    - upload a wheel distribution package
 .PHONY: dist-upload
 dist-upload:
-	@twine upload dist/{{cookiecutter.package_name}}-*-py3-none-any.whl
+	@hatch publish
 
 
 # Keep these lines at the end of the file to retain nice help

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """Sphinx configuration"""
 
 # import os
@@ -21,9 +19,10 @@ from sphinx.ext import apidoc
 
 base_package = "{{cookiecutter.package_name}}"
 regexp = re.compile(r".*__version__ = [\'\"](.*?)[\'\"]", re.S)
+
 repo_root_path = Path(__file__).parents[2].absolute()
 repo_root = str(repo_root_path)
-pkg_root_path = repo_root_path.joinpath(base_package)
+pkg_root_path = repo_root_path.joinpath("src", base_package)
 pkg_root = str(pkg_root_path)
 init_file = pkg_root_path.joinpath("__init__.py")
 with init_file.open(mode="r", encoding="utf-8") as file_handle:
@@ -32,7 +31,8 @@ with init_file.open(mode="r", encoding="utf-8") as file_handle:
     if match:
         short_version = match.group(1)
     else:
-        raise RuntimeError(f"Cannot find __version__ in {init_file}")
+        error = f"Cannot find __version__ in {init_file}"
+        raise RuntimeError(error)
 
 
 # -- General configuration ------------------------------------------------

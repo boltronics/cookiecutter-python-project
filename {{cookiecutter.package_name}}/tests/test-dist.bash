@@ -36,3 +36,6 @@ cd ../tests &&
 
 echo "Exiting test virtual environment"
 deactivate
+
+echo "Removing test virtual environment"
+rm -rf test_venv
