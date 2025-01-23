@@ -82,7 +82,7 @@ starts with installing Cookiecutter. This is best done by creating a new
 virtual environment specifically for cookiecutter and then installing
 cookiecutter using ``pip``. The example below shows how to do this.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ python -m venv --prompt cc ccvenv
     $
@@ -114,13 +114,13 @@ it may be required for cookiecutter to function if using it to clone
 this template). Under Windows, you can use `winget
 <https://learn.microsoft.com/en-us/windows/package-manager/winget/>`_.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ winget install --id Git.Git --exact --source winget
 
 Under macOS you can use `brew <https://brew.sh/>`_.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ brew install git
 
@@ -137,7 +137,7 @@ If you wish to use the fancy Makefile included in this project, you
 may wish to install the ``make`` command. Under Windows, again using
 winget:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ winget install --id GnuWin32.Make --exact --source winget
 
@@ -148,7 +148,7 @@ containing ``make.exe`` to your PATH, which is typically something like:
 
 Under macOS you can again use brew.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ brew install make
 
@@ -168,7 +168,7 @@ execution policy to permit them. This can be done by opening a Windows
 PowerShell as an administrator (just right-click the launcher and
 select ``Run as Administrator``) and issuing the following command:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     PS > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
@@ -192,14 +192,14 @@ The easiest method (which will fail if ``git`` is not installed) is to
 reference this template via its GitHub URL (where 'gh' is a shortened
 form for GitHub):
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ cookiecutter gh:boltronics/cookiecutter-python-project
 
 Alternatively, if you have cloned or downloaded a local copy of this
 template, you can reference it directly:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ cookiecutter path/to/cookiecutter-python-project
 
@@ -210,7 +210,7 @@ shown in order.
 Once you have generated your new Python package project you can exit the
 cookiecutter virtual environment as it is no longer required.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ deactivate
     $
@@ -258,7 +258,7 @@ and hyphens in it. The package display name is first converted to lowercase
 text and then any spaces or hyphens are converted to underscores to produce a
 Python package name.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     (cc) $ cookiecutter gh:boltronics/cookiecutter-python-project
     [1/10] package_display_name (Package-Name): abc 123
@@ -284,14 +284,14 @@ Python package name.
 
 The project has been created in the ``abc_123`` directory.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ cd abc_123
 
 If you are planning to use git, it might be a good idea to create a
 new repository at this point.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ git init
     $ git add .
@@ -307,7 +307,7 @@ First, let's enter a project-specific virtual environment. Hatch
 will install any of the project's dependencies (if added to pyproject.toml) as well as
 the project itself as an editable package.
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ hatch shell
     (abc_123) $
@@ -321,7 +321,7 @@ There are a number of other virtual environments available to you, and
 most of these have their own packages and scripts to ease
 development. You can bring up a summary like so:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ hatch env show
                             Standalone
@@ -358,7 +358,7 @@ development. You can bring up a summary like so:
 
 You can enter use these virtual environments like so:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ hatch shell types
     (types) $ pip freeze
@@ -391,7 +391,7 @@ If you have make installed, the included Makefile provides handy
 shortcuts for various Hatch commands and the configured scripts. You
 can print a summary of options via the `make help` command, like so:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ make help
 
@@ -420,10 +420,12 @@ can print a summary of options via the `make help` command, like so:
     dist-test                      - test a wheel distribution package
     dist-upload                    - upload a wheel distribution package
 
+    $
+
 
 Here is an example of one in action:
 
-.. code-block:: console
+.. code-block:: shell-session
 
     $ make test-verbose
     ────────────────────────────── hatch-test.py3.13 ───────────────────────────────
