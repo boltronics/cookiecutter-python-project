@@ -3,6 +3,7 @@ To avoid bit-rot in the examples they are tested as part of the unit tests
 suite.
 """
 
+import logging
 import os
 import shlex
 import subprocess
@@ -74,7 +75,12 @@ class ExamplesTestCase(unittest.TestCase):
         try:
             subprocess.run(args, **popen_default_kwargs, check=True)
             return True
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError as error:
+            logging.error("Error: %s", error)
+            if error.stdout:
+                logging.error("stdout: %s", error.stdout.decode())
+            if error.stderr:
+                logging.error("stderr: %s", error.stderr.decode())
             return False
         finally:
             os.chdir(original_cwd)
