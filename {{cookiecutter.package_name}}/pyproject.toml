@@ -111,12 +111,7 @@ extra-dependencies = [
 
 [tool.hatch.envs.docs.scripts]
 build = [
-  """
-  rm -rf \
-    docs/source/api/{{cookiecutter.package_name}}*.rst \
-    docs/source/api/modules.rst \
-    docs/build/*
-  """,
+  "python scripts/cleanup_docs.py",
   "sphinx-build -M html docs/source docs/build",
 ]
 build-dummy = [
