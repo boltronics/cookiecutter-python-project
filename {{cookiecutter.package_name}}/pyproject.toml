@@ -113,7 +113,7 @@ extra-dependencies = [
 build = [
   """
   rm -rf \
-    docs/source/api/sitemap_generator*.rst \
+    docs/source/api/{{cookiecutter.package_name}}*.rst \
     docs/source/api/modules.rst \
     docs/build/*
   """,
