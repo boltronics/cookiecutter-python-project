@@ -249,7 +249,7 @@ new repository at this point.
 
     $ git init
     $ git add .
-    $ git commit -m 'Initial cookiecutter-python-project setup'
+    $ git commit -m "Initial cookiecutter-python-project setup"
 
 With that out of the way, it will be easy to use git to undo any
 potential mistakes made while experimenting.
