@@ -78,9 +78,60 @@ cookiecutter using ``pip``. The example below shows how to do this.
 .. code-block:: console
 
     $ python -m venv --prompt cc ccvenv
+    $
     $ source ccvenv/bin/activate
+    $ # or for cmd.exe:
+    $ # ccvenv\Scripts\activate.bat
+    $ # or for PowerShell:
+    $ # ccvenv\Scripts\Activate.ps1
+    $
     (cc) $ pip install -U pip  # update pip to avoid any warnings
     (cc) $ pip install cookiecutter
+
+If you do not yet have Hatch installed, now would be a good time to do
+so. Refer to the installation instructions for your operating system
+`here <https://hatch.pypa.io/latest/install/>`_.
+
+It may also be a good idea to ensure you have ``git`` installed (and
+it may be required for cookiecutter to function if using it to clone
+this template). Under Windows, you can use `winget
+<https://learn.microsoft.com/en-us/windows/package-manager/winget/>`_.
+
+.. code-block:: console
+
+    (cc) $ winget install --id Git.Git --exact --source winget
+
+Under macOS you can use `brew <https://brew.sh/>`_.
+
+.. code-block:: console
+
+    (cc) $ brew install git
+
+Users of other operating systems likely already have it installed or
+will be able to install it via their operating system's package
+manager.
+
+If you wish to use the fancy Makefile included in this project, which
+is entirely optional, you may wish to install the ``make``
+command. Under Windows, again using winget:
+
+.. code-block:: console
+
+    (cc) $ winget install --id GnuWin32.Make --exact --source winget
+
+Unlike with git, you will need to `manually add
+<https://stackoverflow.com/a/44272417/8243194>`_ the directory
+containing ``make.exe`` to your PATH, which is typically something like:
+``C:\Program Files(x86)\GnuWin32\bin\``.
+
+Under macOS you can again use brew.
+
+.. code-block:: console
+
+    (cc) $ brew install make
+
+Users of other operating systems should again have no trouble finding
+it in their operating system's package manager.
 
 You are now ready to create a new Python project from the Cookiecutter
 template provided by this project.
