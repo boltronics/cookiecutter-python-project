@@ -49,7 +49,7 @@ class ExamplesTestCase(unittest.TestCase):
             )
         else:
             # Unix-like systems
-            activate_cmd = f"source {VENV_DIR}/bin/activate"
+            activate_cmd = f". {VENV_DIR}/bin/activate"
             args = shlex.split(
                 f'sh -c "{activate_cmd} && python {filename}"'
             )
