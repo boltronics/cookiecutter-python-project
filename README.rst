@@ -1,3 +1,4 @@
+###########################
 Cookiecutter Python Project
 ###########################
 
@@ -64,11 +65,17 @@ It is assumed that the new Python package will eventually be:
 The generated docs have some references and links to those sites.
 
 
+===============
 Getting Started
 ===============
 
+--------------------
 One Time Setup Steps
 --------------------
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install cookiecutter via pip
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The process for using Cookiecutter to create a new Python package project
 starts with installing Cookiecutter. This is best done by creating a new
@@ -88,9 +95,19 @@ cookiecutter using ``pip``. The example below shows how to do this.
     (cc) $ pip install -U pip  # update pip to avoid any warnings
     (cc) $ pip install cookiecutter
 
+
+^^^^^^^^^^^^^
+Install hatch
+^^^^^^^^^^^^^
+
 If you do not yet have Hatch installed, now would be a good time to do
 so. Refer to the installation instructions for your operating system
 `here <https://hatch.pypa.io/latest/install/>`_.
+
+
+^^^^^^^^^^^^^^^^^^^^^^
+Install git (optional)
+^^^^^^^^^^^^^^^^^^^^^^
 
 It may also be a good idea to ensure you have ``git`` installed (and
 it may be required for cookiecutter to function if using it to clone
@@ -111,9 +128,14 @@ Users of other operating systems likely already have it installed or
 will be able to install it via their operating system's package
 manager.
 
-If you wish to use the fancy Makefile included in this project, which
-is entirely optional, you may wish to install the ``make``
-command. Under Windows, again using winget:
+
+^^^^^^^^^^^^^^^^^^^^^^^
+Install make (optional)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If you wish to use the fancy Makefile included in this project, you
+may wish to install the ``make`` command. Under Windows, again using
+winget:
 
 .. code-block:: console
 
@@ -133,10 +155,31 @@ Under macOS you can again use brew.
 Users of other operating systems should again have no trouble finding
 it in their operating system's package manager.
 
-You are now ready to create a new Python project from the Cookiecutter
-template provided by this project.
+
+.. code-block:: console
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+An important note for Windows users running make
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are using the Makefile system, be aware that two of the targets
+(``help`` and ``dist-test``) make use of PowerShell scripts to achieve
+Windows compatibility. These may not run unless you adjust an
+execution policy to permit them. This can be done by opening a Windows
+PowerShell as an administrator (just right-click the launcher and
+select ``Run as Administrator``) and issuing the following command:
+
+.. code-block:: console
+
+    PS > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+You can read more about this `here
+<https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies>`_.
+
+Finally, you are ready to create a new Python project from the
+Cookiecutter template provided by this project.
 
 
+--------------------
 Create a new project
 --------------------
 
@@ -145,15 +188,16 @@ simply navigate to a directory where you want to create the new project, then
 run the ``cookiecutter`` command with a command line argument referencing this
 template.
 
-The easiest method is to reference this template via its GitHub URL (where 'gh'
-is a shortened form for GitHub):
+The easiest method (which will fail if ``git`` is not installed) is to
+reference this template via its GitHub URL (where 'gh' is a shortened
+form for GitHub):
 
 .. code-block:: console
 
     (cc) $ cookiecutter gh:boltronics/cookiecutter-python-project
 
-Alternatively, if you have cloned a local copy of this template you can
-reference it directly:
+Alternatively, if you have cloned or downloaded a local copy of this
+template, you can reference it directly:
 
 .. code-block:: console
 
@@ -172,6 +216,7 @@ cookiecutter virtual environment as it is no longer required.
     $
 
 
+--------------------
 Manual Modifications
 --------------------
 
@@ -192,6 +237,7 @@ using the new project.
   <https://pypi.python.org/pypi?:action=list_classifiers>`_.
 
 
+=======
 Example
 =======
 
@@ -435,6 +481,7 @@ Here is an example of one in action:
     $
 
 
+=====================================
 Suggestions? Contributions? Problems?
 =====================================
 
