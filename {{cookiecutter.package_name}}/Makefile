@@ -1,9 +1,22 @@
 # This makefile has been created to help developers perform common actions.
-# Most actions assume it is operating in a virtual environment where the
-# python command links to the appropriate virtual environment Python.
 
 MAKEFLAGS += --no-print-directory
-GIT := $(shell command -v git)
+ifeq ($(OS),Windows_NT)
+	UNAME_S := Windows
+else
+	UNAME_S := $(shell uname -s)
+endif
+
+# Set GIT variable based on the operating system
+ifeq ($(UNAME_S), Linux)
+	GIT := $(shell command -v git)
+endif
+ifeq ($(UNAME_S), Darwin)
+	GIT := $(shell command -v git)
+endif
+ifeq ($(UNAME_S), Windows)
+	GIT := $(shell where git)
+endif
 
 
 define CHECK_GIT
@@ -21,11 +34,16 @@ endef
 
 # help: help                           - display makefile help information
 .PHONY: help
+ifeq ($(UNAME_S), Windows)
+help:
+	@powershell -File scripts/generate_help.ps1 -MakefilePath Makefile
+else
 help:
 	@grep "^#\shelp:" Makefile | \
 		grep -v grep | \
 		sed 's/\# help\: //' | \
 		sed 's/\# help\://'
+endif
 
 
 # help: venv                           - enter a dev virtual environment
@@ -143,10 +161,18 @@ dist:
 
 # help: dist-test                      - test a wheel distribution package
 .PHONY: dist-test
+ifeq ($(UNAME_S), Windows)
+dist-test: dist
+	@cd dist && \
+	@powershell \
+		-File ../tests/test-dist.ps1 \
+			./{{cookiecutter.package_name}}-*-py3-none-any.whl
+else
 dist-test: dist
 	@cd dist && \
 	../tests/test-dist.bash \
 		./{{cookiecutter.package_name}}-*-py3-none-any.whl
+endif
 
 
 # help: dist-upload                    - upload a wheel distribution package

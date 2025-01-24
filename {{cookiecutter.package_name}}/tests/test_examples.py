@@ -3,6 +3,7 @@ To avoid bit-rot in the examples they are tested as part of the unit tests
 suite.
 """
 
+import logging
 import os
 import shlex
 import subprocess
@@ -39,15 +40,22 @@ class ExamplesTestCase(unittest.TestCase):
         original_cwd = os.getcwd()
         script_dir = os.path.join(REPO_DIR, os.path.dirname(filepath))
         filename = os.path.basename(filepath)
-        args = shlex.split(
-            (
-                f'/bin/bash -c "source {VENV_DIR}/bin/activate '
-                f'&& python {filename}"'
-            )
-        )
 
-        env = {}
-        if os.environ["PATH"]:
+        if os.name == "nt":
+            # Windows
+            activate_cmd = f"{VENV_DIR}\\Scripts\\activate"
+            args = shlex.split(
+                f'cmd.exe /c "{activate_cmd} && python {filename}"'
+            )
+        else:
+            # Unix-like systems
+            activate_cmd = f". {VENV_DIR}/bin/activate"
+            args = shlex.split(
+                f'sh -c "{activate_cmd} && python {filename}"'
+            )
+
+        env: dict[str, str] = {}
+        if os.environ.get("PATH"):
             env["PATH"] = os.environ["PATH"]
         if "LD_LIBRARY_PATH" in os.environ:
             env["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"]
@@ -55,25 +63,27 @@ class ExamplesTestCase(unittest.TestCase):
         if popen_kwargs is None:
             popen_kwargs = {}
 
-        popen_default_kwargs = {
+        popen_default_kwargs: dict[str, Any] = {
             "env": env,
+            "cwd": script_dir,
+            "timeout": timeout,
             "stdout": subprocess.PIPE,
             "stderr": subprocess.PIPE,
-            "shell": False,
         }
+        popen_default_kwargs.update(popen_kwargs)
 
         try:
-            os.chdir(script_dir)
-            with subprocess.Popen(
-                args=args,
-                **{**popen_default_kwargs, **popen_kwargs},
-            ) as proc:
-                _out, _err = proc.communicate(timeout=timeout)
-                returncode = proc.returncode
+            subprocess.run(args, **popen_default_kwargs, check=True)
+            return True
+        except subprocess.CalledProcessError as error:
+            logging.error("Error: %s", error)
+            if error.stdout:
+                logging.error("stdout: %s", error.stdout.decode())
+            if error.stderr:
+                logging.error("stderr: %s", error.stderr.decode())
+            return False
         finally:
             os.chdir(original_cwd)
-
-        return returncode == 0
 
     def test_quickstart_example(self) -> None:
         """check quickstart example"""
