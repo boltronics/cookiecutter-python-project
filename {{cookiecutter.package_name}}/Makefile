@@ -94,6 +94,7 @@ format:
 .PHONY: check-format
 check-format:
 	@hatch run style:run-black-check
+	@hatch run style:run-flake8
 
 
 # help: sort-imports                   - apply import sort ordering
