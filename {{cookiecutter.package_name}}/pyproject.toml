@@ -135,7 +135,7 @@ extra-dependencies = [
 ]
 
 [tool.hatch.envs.style.scripts]
-run-flake8 = "flake8 --ignore=E203,W503 src tests"
+run-flake8 = "flake8 src tests"
 run-isort = "isort src tests --profile black"
 run-isort-check = "run-isort --check-only"
 run-black = "black examples src tests"
