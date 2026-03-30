@@ -1,7 +1,6 @@
 """Quickstart example
 
-This example script imports the {{cookiecutter.package_name}} package and prints out
-the version.
+This example script imports our package and prints out the version.
 """
 
 import logging

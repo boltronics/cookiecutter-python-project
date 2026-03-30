@@ -3,16 +3,28 @@
 import shutil
 from pathlib import Path
 
-paths = [
-    "docs/build",
-    "docs/source/api/modules.rst",
-    "docs/source/api/{{cookiecutter.package_name}}*.rst",
+_LITERAL_PATHS = [
+    Path("docs/build"),
+    Path("docs/source/api/modules.rst"),
+]
+_GLOB_PATTERNS = [
+    ("docs/source/api", "reposcan*.rst"),
 ]
 
-for path in paths:
-    p = Path(path)
-    if p.exists():
-        if p.is_dir():
-            shutil.rmtree(p)
-        else:
-            p.unlink()
+
+def clean() -> None:
+    """Delete build artefacts and generated API documentation files."""
+    for path in _LITERAL_PATHS:
+        if path.exists():
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+
+    for parent_str, pattern in _GLOB_PATTERNS:
+        for match in Path(parent_str).glob(pattern):
+            match.unlink()
+
+
+if __name__ == "__main__":
+    clean()
