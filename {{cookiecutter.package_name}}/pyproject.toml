@@ -70,6 +70,9 @@ only-include = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/{{cookiecutter.package_name}}"]
 
+[tool.hatch.envs.default]
+python = "3.11"
+
 [tool.hatch.envs.hatch-test]
 extra-dependencies = [
   "pytest",
@@ -128,6 +131,7 @@ extra-dependencies = [
 check = "pylint src tests examples"
 
 [tool.hatch.envs.style]
+python = "3.14"
 detached = true
 extra-dependencies = [
   "black",
