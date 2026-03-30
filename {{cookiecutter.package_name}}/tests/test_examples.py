@@ -50,9 +50,7 @@ class ExamplesTestCase(unittest.TestCase):
         else:
             # Unix-like systems
             activate_cmd = f". {VENV_DIR}/bin/activate"
-            args = shlex.split(
-                f'sh -c "{activate_cmd} && python {filename}"'
-            )
+            args = shlex.split(f'sh -c "{activate_cmd} && python {filename}"')
 
         env: dict[str, str] = {}
         if os.environ.get("PATH"):
