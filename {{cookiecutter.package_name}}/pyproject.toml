@@ -70,6 +70,9 @@ only-include = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/{{cookiecutter.package_name}}"]
 
+[tool.hatch.envs.default]
+python = "3.11"
+
 [tool.hatch.envs.hatch-test]
 extra-dependencies = [
   "pytest",
