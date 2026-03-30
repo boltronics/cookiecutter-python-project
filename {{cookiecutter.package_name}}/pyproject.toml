@@ -131,6 +131,7 @@ extra-dependencies = [
 check = "pylint src tests examples"
 
 [tool.hatch.envs.style]
+python = "3.14"
 detached = true
 extra-dependencies = [
   "black",
